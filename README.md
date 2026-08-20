@@ -3,7 +3,11 @@
 [![GitHub topic: dsh-plugin](https://img.shields.io/badge/GitHub-dsh--plugin-0969da?style=flat-square)](https://github.com/topics/dsh-plugin)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-让 DeepSeek Harness 像普通桌面软件一样运行：首次启动后自动创建桌面图标，之后双击图标即可打开独立窗口。
+让 `dsh web` 像普通桌面软件一样运行：**本质是原生 Web，视觉上是桌面软件**。首次启动后自动创建桌面图标，之后双击图标即可打开独立窗口。
+
+- **本质是原生 Web**：背后就是官方 `dsh web` 服务，没有 Electron、没有二次打包、没有 fork，功能与 Web 版完全一致；
+- **视觉上是桌面软件**：窗口由 Edge/Chrome/Brave/Vivaldi 的 `--app` 模式打开，没有标签栏和地址栏，看起来与原生桌面应用无异；
+- **生命周期像桌面软件**：双击图标启动、关闭窗口即退出，临时浏览器 profile 用完自动删除。
 
 这是非官方社区插件，与 DeepSeek 官方无隶属或背书关系。
 
@@ -13,7 +17,7 @@
 
 ![DeepSeek Harness 桌面快捷方式图标](assets/ico.png)
 
-**应用模式独立窗口**（无标签栏、无地址栏，关闭窗口即退出）：
+**应用模式独立窗口**（视觉上是桌面软件，本质是原生 Web UI；无标签栏、无地址栏，关闭窗口即退出）：
 
 ![DeepSeek Harness 应用模式窗口](assets/Harness.png)
 

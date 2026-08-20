@@ -1,0 +1,43 @@
+{
+  "name": "dsh-web-app-launcher",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness Web app-mode launcher bundle for Windows",
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "windows",
+    "desktop"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sylkmpo/dsh-web-app-launcher.git"
+  },
+  "homepage": "https://github.com/sylkmpo/dsh-web-app-launcher#readme",
+  "bugs": {
+    "url": "https://github.com/sylkmpo/dsh-web-app-launcher/issues"
+  },
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./startup": "./startup.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "startup.js",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "plugin-launch.vbs",
+    "plugin-run.bat",
+    "assets"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

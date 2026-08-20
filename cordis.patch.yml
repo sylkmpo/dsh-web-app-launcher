@@ -1,0 +1,14 @@
+# Disable the built-in provider so one Commander instance accepts both the Web
+# flags and this bundle's app-window flags.
+- id: web-startup
+  disabled: true
+
+# Desktop app-mode integration for the Web profile. The default remains
+# browser mode; --app-mode 1 opts into a disposable Chromium profile.
+- insert:
+    - id: desktop-launcher-startup
+      name: 'dsh-web-app-launcher/startup'
+
+    - id: desktop-launcher
+      name: 'dsh-web-app-launcher'
+      inject: [desktopLauncherStartup, webServer]

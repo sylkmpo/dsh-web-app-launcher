@@ -2,4 +2,4 @@
 Set sh = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 base = fso.GetParentFolderName(WScript.ScriptFullName) & "\"
-sh.Run "cmd /c """ & base & "plugin-run.bat"""", 0, False
+sh.Run "cmd /c """ & base & "plugin-run.bat""", 0, False

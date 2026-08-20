@@ -1,6 +1,6 @@
 {
   "name": "dsh-web-app-launcher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DeepSeek Harness Web app-mode launcher bundle for Windows",
   "keywords": [
     "deepseek-harness",

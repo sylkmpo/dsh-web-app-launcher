@@ -7,6 +7,8 @@ import { spawn } from 'node:child_process'
 export const name = 'desktop-launcher'
 export const inject = ['desktopLauncherStartup', 'webServer']
 
+const browserSpawnOptions = Object.freeze({ stdio: 'ignore', windowsHide: false })
+
 function browserCandidates() {
   if (process.platform !== 'win32') return []
   const local = process.env.LOCALAPPDATA ?? join(homedir(), 'AppData', 'Local')
@@ -34,7 +36,7 @@ function psLiteral(value) {
   return `'${String(value).replaceAll("'", "''")}'`
 }
 
-function ensureDesktopShortcut(ctx) {
+function ensureDesktopShortcut(ctx, spawnProcess = spawn) {
   if (process.platform !== 'win32') return
   const packageRoot = fileURLToPath(new URL('.', import.meta.url))
   const launcher = join(packageRoot, 'plugin-launch.vbs')
@@ -52,7 +54,7 @@ function ensureDesktopShortcut(ctx) {
     `$lnk.Description = 'DeepSeek Harness Web app'`,
     `$lnk.Save()`,
   ].join('; ')
-  const child = spawn('powershell.exe', [
+  const child = spawnProcess('powershell.exe', [
     '-NoProfile',
     '-ExecutionPolicy', 'Bypass',
     '-Command', command,
@@ -81,9 +83,7 @@ function cleanupRuntimeProfiles(runtimeRoot) {
   }
 }
 
-export const internals = { cleanupRuntimeProfiles }
-
-function launchApp(ctx, startup) {
+function launchApp(ctx, startup, spawnProcess = spawn) {
   if (!startup.appMode) return
   if (process.platform !== 'win32') {
     ctx.logger.warn(new Error('desktop-launcher: --app-mode is only supported on Windows'))
@@ -100,7 +100,7 @@ function launchApp(ctx, startup) {
   mkdirSync(runtimeRoot, { recursive: true })
   const profileDir = join(runtimeRoot, `browser-profile-${process.pid}-${Date.now()}`)
   const url = `http://127.0.0.1:${ctx.webServer.port}`
-  const child = spawn(browser, [
+  const child = spawnProcess(browser, [
     `--app=${url}`,
     `--user-data-dir=${profileDir}`,
     '--no-first-run',
@@ -111,7 +111,7 @@ function launchApp(ctx, startup) {
     '--disable-default-apps',
     '--disable-background-networking',
     '--window-size=1280,800',
-  ], { stdio: 'ignore', windowsHide: true })
+  ], browserSpawnOptions)
 
   let closed = false
   const close = (code = 0) => {
@@ -130,6 +130,8 @@ function launchApp(ctx, startup) {
     cleanupRuntimeProfiles(runtimeRoot)
   }, 'desktop-launcher.app')
 }
+
+export const internals = { cleanupRuntimeProfiles, ensureDesktopShortcut, launchApp }
 
 export function apply(ctx) {
   ensureDesktopShortcut(ctx)

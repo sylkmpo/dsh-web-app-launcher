@@ -1,8 +1,21 @@
 # DSH Web 启动器（Windows）
 
+[![GitHub topic: dsh-plugin](https://img.shields.io/badge/GitHub-dsh--plugin-0969da?style=flat-square)](https://github.com/topics/dsh-plugin)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 让 DeepSeek Harness 像普通桌面软件一样运行：首次启动后自动创建桌面图标，之后双击图标即可打开独立窗口。
 
 这是非官方社区插件，与 DeepSeek 官方无隶属或背书关系。
+
+## 效果图
+
+**桌面快捷方式图标**（首次运行 `dsh web` 后自动创建）：
+
+![DeepSeek Harness 桌面快捷方式图标](assets/ico.png)
+
+**应用模式独立窗口**（无标签栏、无地址栏，关闭窗口即退出）：
+
+![DeepSeek Harness 应用模式窗口](assets/Harness.png)
 
 ## 插件安装
 

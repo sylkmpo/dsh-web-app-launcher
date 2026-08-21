@@ -4,11 +4,17 @@
   disabled: true
 
 # Desktop app-mode integration for the Web profile. The default remains
-# browser mode; --app-mode 1 opts into a disposable Chromium profile.
+# browser mode; --app-mode 1 opts into a disposable Chromium profile. Plugin
+# installs are profile-local, but keep both rows inert if this bundle is added
+# to a non-Web profile (for example, a headless catalog verification profile).
 - insert:
     - id: desktop-launcher-startup
       name: 'dsh-web-app-launcher/startup'
+      disabled: !!js >-
+        !Array.from(ctx.loader.entries()).some(entry => entry.options.id === 'web-startup')
 
     - id: desktop-launcher
       name: 'dsh-web-app-launcher'
       inject: [desktopLauncherStartup, webServer]
+      disabled: !!js >-
+        !Array.from(ctx.loader.entries()).some(entry => entry.options.id === 'web-startup')
